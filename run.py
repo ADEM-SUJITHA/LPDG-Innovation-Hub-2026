@@ -7,7 +7,7 @@ import shutil
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 
-BASELINE_FILE = ROOT / "predictions_baseline.csv"
+ML_PREDICTIONS = ROOT / "predictions_ml.csv"
 FINAL_FILE = ROOT / "predictions.csv"
 
 
@@ -23,30 +23,28 @@ def main():
     if not DATA_DIR.exists():
         raise SystemExit("ERROR: data folder was not found.")
 
-    print("LPDG Innovation Hub 2026 - Prediction Pipeline")
-    print("=" * 50)
+    print("LPDG Innovation Hub 2026 - Machine Learning Pipeline")
+    print("=" * 55)
 
-    # Step 1: Generate the provided 3-sigma baseline
+    # Step 1: Build historical ML features and labels
     run_command([
         sys.executable,
-        "baseline_3sigma.py",
-        "--data",
-        "data",
-        "--out",
-        "predictions_baseline.csv"
+        "analysis/create_ml_baseline_features.py"
     ])
 
-    # The improvement analysis reads predictions.csv,
-    # so temporarily use the baseline as its input.
-    shutil.copy2(BASELINE_FILE, FINAL_FILE)
-
-    # Step 2: Apply the improved evidence-based ranking
+    # Step 2: Train the final ML model and generate predictions
     run_command([
         sys.executable,
-        "analysis/improved_analysis.py"
+        "analysis/final_ml_predictions.py"
     ])
 
-    # Step 3: Validate final submission
+    # Step 3: Copy ML predictions to the required filename
+    if not ML_PREDICTIONS.exists():
+        raise SystemExit("ERROR: predictions_ml.csv was not generated.")
+
+    shutil.copy2(ML_PREDICTIONS, FINAL_FILE)
+
+    # Step 4: Validate the final submission
     run_command([
         sys.executable,
         "validate_submission.py",
