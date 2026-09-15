@@ -19,7 +19,7 @@ For each decision week, the system produces:
 - A reason explaining the ranking
 - Predictions for 8 weeks
 
-### Prediction period
+### Prediction Period
 
 ```text
 2026-02-02
