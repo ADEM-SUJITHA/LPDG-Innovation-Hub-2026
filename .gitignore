@@ -1,0 +1,10 @@
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Challenge data
+data/
+03-challenge-data.zip
