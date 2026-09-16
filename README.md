@@ -30,3 +30,10 @@ For each decision week, the system produces:
 2026-03-09
 2026-03-16
 2026-03-23
+---
+
+## Screen Recording
+
+A 7-minute 45-second walkthrough demonstrating the project pipeline, Machine Learning approach, prediction generation, validation, and final results.
+
+**Demo Video:** [LPDG Innovation Hub 2026 — Project Demonstration](PASTE-YOUR-VIDEO-LINK-HERE)
